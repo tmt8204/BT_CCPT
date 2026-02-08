@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Trang cá nhân</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #74b9ff, #a29bfe);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .profile-card {
+            background: white;
+            width: 350px;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(196, 107, 107, 0.2);
+            text-align: center;
+        }
+
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+            object-fit: cover;
+        }
+
+        h2 {
+            margin: 10px 0;
+        }
+
+        .info {
+            text-align: left;
+            margin-top: 15px;
+        }
+
+        .info p {
+            margin: 8px 0;
+        }
+
+        .btn {
+            margin-top: 15px;
+            background: #0984e5;
+            color: rgb(226, 14, 14);
+            border: none;
+            padding: 10px;
+            width: 100%;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .btn:hover {
+            background: #0766b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="profile-card">
+    <img src="https://i.pravatar.cc/150" alt="avatar" class="avatar">
+
+    <h2>Nguyễn Văn A</h2>
+
+    <div class="info">
+        <p><strong>Email:</strong> nguyenvana@gmail.com</p>
+        <p><strong>Điện thoại:</strong> 0123456789</p>
+        <p><strong>Địa chỉ:</strong> TP.HCM</p>
+    </div>
+
+    <button class="btn">Chỉnh sửa thông tin</button>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Đăng ký — GUMMY</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --pink:#ff69b4;
+      --soft:#f7f7f7;
+      --muted:#bfbfbf;
+      --card-bg:#fff;
+      --radius:28px;
+      --shadow:0 10px 28px rgba(0,0,0,0.08);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;}
+    body{
+      margin:0; font-family:'Poppins',system-ui,Segoe UI,Roboto,Arial; background:linear-gradient(180deg,#fff 0%,#fbfbfb 100%);
+      display:flex; align-items:center; justify-content:center; padding:40px;
+    }
+    .stage{width:520px; max-width:94%;}
+    .card{
+      background:var(--card-bg); border-radius:var(--radius); padding:28px 36px 32px; box-shadow:var(--shadow); border:1px solid rgba(0,0,0,0.03);
+      position:relative;
+    }
+    .brand{ text-align:center; margin-bottom:6px }
+    .brand h1{ margin:0; color:var(--pink); letter-spacing:1px; font-size:34px; font-weight:700 }
+    .brand p{ margin:6px 0 18px; color:#ff8fc7; font-weight:500 }
+
+    form .row{display:flex; gap:14px}
+    .field{width:100%; margin-bottom:14px}
+    input[type=text], input[type=email], input[type=password], select{
+      width:100%; padding:14px 16px; border-radius:18px; border:1px solid #eee; background:#fafafa; outline:none; font-size:14px; color:#333;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,0.6);
+    }
+    input::placeholder{color:var(--muted)}
+    .small{width:110px}
+    .date-row{display:flex; gap:12px; align-items:center}
+    .date-row .small{width:84px}
+
+    .gender{display:flex; gap:10px; margin-top:10px}
+    .gender label{display:inline-flex; align-items:center; gap:8px; padding:8px 14px; border-radius:16px; border:1px solid #eee; cursor:pointer; background:#fff; font-weight:500}
+    .gender input{display:none}
+    .gender input:checked + span{background:linear-gradient(180deg,#fff 0,#fff);}
+
+    .btn-wrap{text-align:center; margin-top:18px}
+    .btn{
+      display:inline-block; padding:10px 36px; background:var(--pink); color:#fff; border-radius:20px; border:none; font-weight:700; font-size:16px; box-shadow:0 6px 0 rgba(255,105,180,0.12);
+    }
+
+    /* subtle outer frame to match screenshot */
+    .outer{
+      padding:26px; border-radius:18px; background:linear-gradient(180deg,rgba(0,0,0,0.02),transparent); display:flex; justify-content:center; align-items:center; box-shadow:0 2px 0 rgba(0,0,0,0.02) inset;
+    }
+
+    /* responsive tweaks */
+    @media (max-width:460px){
+      .row{flex-direction:column}
+      .brand h1{font-size:28px}
+    }
+  </style>
+</head>
+<body>
+  <div class="outer">
+    <div class="stage">
+      <div class="card">
+        <div class="brand">
+          <h1>GUMMY</h1>
+          <p>Kết nối cùng cộng đồng GUMMY của chúng tôi♡</p>
+          <p>Hi</p>
+        </div>
+
+        <form aria-label="form đăng ký">
+          <div class="row">
+            <div class="field"><input type="text" placeholder="Họ" /></div>
+            <div class="field"><input type="text" placeholder="Tên" /></div>
+          </div>
+
+          <div class="field"><input type="email" placeholder="Email hoặc số điện thoại" /></div>
+          <div class="field"><input type="password" placeholder="Mật khẩu" /></div>
+
+          <div style="margin-top:8px; color:#444; font-size:14px;">Ngày sinh <span style="color:#999; font-weight:500; margin-left:8px">?</span></div>
+          <div class="date-row" style="margin:8px 0 6px">
+            <select class="small" aria-label="ngày">
+              <option>1</option>
+              <option selected>16</option>
+              <option>30</option>
+            </select>
+            <select class="small" aria-label="tháng">
+              <option>1</option>
+              <option selected>9</option>
+              <option>12</option>
+            </select>
+            <select class="small" aria-label="năm">
+              <option>2000</option>
+              <option selected>2004</option>
+              <option>2010</option>
+            </select>
+          </div>
+
+          <div style="margin-top:6px; color:#444; font-size:14px;">Giới tính <span style="color:#999; font-weight:500; margin-left:8px">?</span></div>
+          <div class="gender">
+            <label><input type="radio" name="gender" value="female" checked /><span>Nữ</span></label>
+            <label><input type="radio" name="gender" value="male" /><span>Nam</span></label>
+            <label><input type="radio" name="gender" value="other" /><span>Khác</span></label>
+          </div>
+
+          <div class="btn-wrap"><button class="btn" type="button">Đăng ký</button></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

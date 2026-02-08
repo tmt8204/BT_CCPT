@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GUMMY - Game</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #fff;
+      min-height: 100vh;
+      color: #333;
+    }
+
+    /* Header - nền #FCDDF9, logo fuchsia, nút tròn trắng icon viền đen, 3 nhóm trái-giữa-phải */
+    .header {
+      background: #FCDDF9;
+      min-height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 24px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    }
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+    .logo {
+      font-weight: 700;
+      font-size: 1.4rem;
+      color: #C71585;
+      letter-spacing: 0.5px;
+    }
+    .header-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border: none;
+      background: #fff;
+      color: #000;
+      font-size: 1.1rem;
+      cursor: pointer;
+      border-radius: 50%;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      transition: box-shadow 0.2s;
+    }
+    .header-btn:hover {
+      box-shadow: 0 2px 6px rgba(0,0,0,0.14);
+    }
+    .header-btn i {
+      color: inherit;
+      font-size: inherit;
+    }
+    .header-nav-center {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+      justify-content: center;
+    }
+    .header-nav-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    /* Layout */
+    .layout {
+      display: flex;
+      padding-top: 56px;
+      min-height: 100vh;
+    }
+
+    /* Sidebar - trắng, chữ đen, active #F9D0E2 chữ đen, divider */
+    .sidebar {
+      width: 280px;
+      background: #fff;
+      padding: 20px 0;
+      box-shadow: 2px 0 8px rgba(0,0,0,0.04);
+      flex-shrink: 0;
+    }
+    .sidebar-section {
+      padding: 0 20px 20px;
+    }
+    .sidebar-section:last-child {
+      padding-bottom: 24px;
+    }
+    .sidebar-divider {
+      height: 1px;
+      background: #e8e8e8;
+      margin: 16px 20px;
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-weight: 700;
+      font-size: 1rem;
+      color: #000;
+    }
+    .section-header .fa-gear {
+      color: #888;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+    .search-box {
+      width: 100%;
+      padding: 10px 14px 10px 36px;
+      border: 1px solid #e5e5e5;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      background: #f5f5f5 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23999' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'/%3E%3C/svg%3E") no-repeat 12px center;
+      margin-bottom: 12px;
+    }
+    .search-box::placeholder {
+      color: #999;
+    }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      color: #000;
+      margin-bottom: 4px;
+      transition: background 0.2s;
+    }
+    .nav-item:hover {
+      background: #f5f5f5;
+    }
+    .nav-item.active {
+      background: #F9D0E2;
+      color: #000;
+      font-weight: 600;
+    }
+    .nav-item i {
+      font-size: 1.1rem;
+      width: 22px;
+      text-align: center;
+      color: inherit;
+    }
+    .sidebar-desc {
+      font-size: 0.8rem;
+      color: #666;
+      line-height: 1.4;
+      margin-bottom: 12px;
+    }
+    .category-title {
+      font-weight: 700;
+      font-size: 1rem;
+      color: #000;
+      margin-bottom: 12px;
+    }
+
+    /* Main - nền trắng, tiêu đề đen */
+    .main {
+      flex: 1;
+      padding: 24px 32px 40px;
+      overflow-x: hidden;
+      background: #fff;
+    }
+    .main-title {
+      font-weight: 700;
+      font-size: 1.35rem;
+      color: #000;
+      margin-bottom: 20px;
+    }
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 20px;
+    }
+    .game-card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .game-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+    .game-card-thumb {
+      height: 120px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      display: block;
+    }
+    .game-card-thumb::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 65%;
+      background: linear-gradient(transparent, rgba(60, 30, 70, 0.85));
+    }
+    .game-card-title {
+      position: absolute;
+      bottom: 8px;
+      left: 12px;
+      right: 12px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: white;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+      z-index: 1;
+    }
+    .game-card-info {
+      padding: 10px 12px;
+      font-size: 0.8rem;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="header-left">
+      <span class="logo">GUMMY</span>
+      <button type="button" class="header-btn" title="Tìm kiếm" aria-label="Tìm kiếm"><i class="fas fa-search"></i></button>
+    </div>
+    <nav class="header-nav-center">
+      <button type="button" class="header-btn" title="Trang chủ"><i class="fas fa-house"></i></button>
+      <button type="button" class="header-btn" title="Bạn bè"><i class="fas fa-user-group"></i></button>
+      <button type="button" class="header-btn" title="Phim"><i class="fas fa-film"></i></button>
+      <button type="button" class="header-btn" title="Nhóm"><i class="fas fa-users"></i></button>
+      <button type="button" class="header-btn" title="Thêm"><i class="fas fa-square-plus"></i></button>
+    </nav>
+    <nav class="header-nav-right">
+      <button type="button" class="header-btn" title="Tin nhắn"><i class="fas fa-comment-dots"></i></button>
+      <button type="button" class="header-btn" title="Thông báo"><i class="fas fa-bell"></i></button>
+      <button type="button" class="header-btn" title="Cá nhân"><i class="fas fa-user"></i></button>
+    </nav>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sidebar-section">
+        <div class="section-header">
+          <span class="section-title">Game</span>
+          <i class="fas fa-gear"></i>
+        </div>
+        <input type="text" class="search-box" placeholder="Tìm kiếm game" />
+        <div class="nav-item active">
+          <i class="fas fa-gamepad"></i>
+          Chơi game
+        </div>
+        <div class="nav-item">
+          <i class="fas fa-user"></i>
+          Hoạt động trong game
+        </div>
+        <div class="nav-item">
+          <i class="fas fa-bell"></i>
+          Thông báo
+        </div>
+      </div>
+      <div class="sidebar-divider"></div>
+      <div class="sidebar-section">
+        <span class="category-title">Game của bạn</span>
+        <p class="sidebar-desc">Hãy lưu game vào phần Game của bạn để tạo lối tắt tại đây</p>
+        <div class="nav-item">
+          <i class="fas fa-bookmark"></i>
+          Lưu game
+        </div>
+      </div>
+      <div class="sidebar-divider"></div>
+      <div class="sidebar-section">
+        <span class="category-title">Hạng mục</span>
+        <div class="nav-item">
+          <i class="fas fa-bicycle"></i>
+          Phiêu lưu
+        </div>
+        <div class="nav-item">
+          <i class="fas fa-shield-alt"></i>
+          Chiến đấu
+        </div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <h1 class="main-title">Game có nhiều người chơi nhất</h1>
+      <div class="games-grid">
+        <div class="game-card">
+          <div class="game-card-thumb" style="background: linear-gradient(135deg, #1a5f2a 0%, #2d8f3e 100%);">
+            <span class="game-card-title">8 Ball Pool</span>
+          </div>
+          <div class="game-card-info">Có 11 người bạn chơi</div>
+        </div>
+        <div class="game-card">
+          <div class="game-card-thumb" style="background: linear-gradient(135deg, #1565c0 0%, #42a5f5 100%);">
+            <span class="game-card-title">QUIZ Planet</span>
+          </div>
+          <div class="game-card-info">Có 20 người bạn chơi</div>
+        </div>
+        <div class="game-card">
+          <div class="game-card-thumb" style="background: linear-gradient(135deg, #2e7d32 0%, #66bb6a 100%);">
+            <span class="game-card-title">3D Mini Golf</span>
+          </div>
+          <div class="game-card-info">Có 9 người bạn chơi</div>
+        </div>
+        <div class="game-card">
+          <div class="game-card-thumb" style="background: linear-gradient(135deg, #4a148c 0%, #7b1fa2 100%);">
+            <span class="game-card-title">Slither.io</span>
+          </div>
+          <div class="game-card-info">Có 10 người bạn chơi</div>
+        </div>
+        <div class="game-card">
+          <div class="game-card-thumb" style="background: linear-gradient(135deg, #e91e63 0%, #f48fb1 100%);">
+            <span class="game-card-title">Candy Match</span>
+          </div>
+          <div class="game-card-info">Có 15 người bạn chơi</div>
+        </div>
+        <div class="game-card">
+          <div class="game-card-thumb" style="background: linear-gradient(135deg, #ff6f00 0%, #ffb74d 100%);">
+            <span class="game-card-title">Tây Du Ký</span>
+          </div>
+          <div class="game-card-info">Có 7 người bạn chơi</div>
+        </div>
+        <div class="game-card">
+          <div class="game-card-thumb" style="background: linear-gradient(135deg, #f9a825 0%, #ffd54f 100%);">
+            <span class="game-card-title">Thị Trấn Vui Vẻ</span>
+          </div>
+          <div class="game-card-info">Có 12 người bạn chơi</div>
+        </div>
+        <div class="game-card">
+          <div class="game-card-thumb" style="background: linear-gradient(135deg, #ad1457 0%, #ec407a 100%);">
+            <span class="game-card-title">Thời Trang</span>
+          </div>
+          <div class="game-card-info">Có 15 người bạn chơi</div>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
