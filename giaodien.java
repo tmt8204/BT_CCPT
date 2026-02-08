@@ -16,7 +16,7 @@ public class giaodien extends JFrame {
     public giaodien() {
         setTitle("GUMMY Messenger");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(1450, 800);
+        setSize(1500, 800);
         setLocationRelativeTo(null);
         setResizable(true);
         setBackground(LIGHT_BG);
