@@ -1,0 +1,328 @@
+tao giao dien dang nhap cho 1 trang mang xa hoi co ten la GUMMY
+13:23
+
+Tôi sẽ tạo một giao diện đăng nhập đẹp mắt cho trang mạng xã hội GUMMY dựa trên thiết kế bạn đã cung cấp.
+Done
+
+Tôi đã tạo xong giao diện đăng nhập cho mạng xã hội GUMMY!
+
+Các tính năng chính:
+
+    Thiết kế hiện đại với gradient màu hồng tím theo phong cách của GUMMY
+    Giao diện chia 2 phần: phần trái giới thiệu về GUMMY, phần phải là form đăng nhập
+    Form đăng nhập bao gồm: Email/SĐT, Mật khẩu, nút Đăng nhập
+    Link "Quên mật khẩu?"
+    Nút "Tạo tài khoản mới" với thiết kế outline
+    Responsive design - tự động thích ứng với màn hình điện thoại
+    Hiệu ứng hover và transition mượt mà
+    Phần trang trí gradient
+
+Gummy login
+Code · HTML 
+
+
+Claude is AI and can make mistakes. Please double-check responses.
+Gummy login · HTML
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GUMMY - Đăng nhập</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            display: flex;
+            max-width: 1000px;
+            width: 100%;
+            background: white;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .left-section {
+            flex: 1;
+            background: linear-gradient(135deg, #ff6b9d 0%, #c239b3 100%);
+            padding: 60px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 56px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .tagline {
+            font-size: 18px;
+            line-height: 1.6;
+            opacity: 0.95;
+            max-width: 300px;
+        }
+
+        .right-section {
+            flex: 1;
+            padding: 60px 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .login-form {
+            width: 100%;
+        }
+
+        .form-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid #e8e8e8;
+            border-radius: 50px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            outline: none;
+            background: #f8f8f8;
+        }
+
+        .input-field:focus {
+            border-color: #ff6b9d;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(255, 107, 157, 0.1);
+        }
+
+        .input-field::placeholder {
+            color: #999;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #ff6b9d 0%, #c239b3 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255, 107, 157, 0.4);
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        .forgot-password {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .forgot-password a {
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .forgot-password a:hover {
+            color: #ff6b9d;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 30px 0;
+            color: #999;
+            font-size: 14px;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #e8e8e8;
+        }
+
+        .divider::before {
+            margin-right: 15px;
+        }
+
+        .divider::after {
+            margin-left: 15px;
+        }
+
+        .signup-btn {
+            width: 100%;
+            padding: 16px;
+            background: white;
+            color: #ff6b9d;
+            border: 2px solid #ff6b9d;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .signup-btn:hover {
+            background: #ff6b9d;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255, 107, 157, 0.3);
+        }
+
+        .signup-btn:active {
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .left-section {
+                padding: 40px 30px;
+            }
+
+            .right-section {
+                padding: 40px 30px;
+            }
+
+            .logo {
+                font-size: 42px;
+            }
+
+            .tagline {
+                font-size: 16px;
+            }
+        }
+
+        .decoration {
+            position: fixed;
+            border-radius: 50%;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        .decoration1 {
+            width: 300px;
+            height: 300px;
+            background: white;
+            top: -100px;
+            left: -100px;
+        }
+
+        .decoration2 {
+            width: 200px;
+            height: 200px;
+            background: white;
+            bottom: -50px;
+            right: -50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="decoration decoration1"></div>
+    <div class="decoration decoration2"></div>
+    
+    <div class="container">
+        <div class="left-section">
+            <h1 class="logo">GUMMY</h1>
+            <p class="tagline">Gummy giúp bạn kết nối và chia sẻ với mọi người trong cuộc sống của bạn</p>
+        </div>
+        
+        <div class="right-section">
+            <form class="login-form" onsubmit="handleLogin(event)">
+                <h2 class="form-title">Chào mừng trở lại!</h2>
+                
+                <div class="input-group">
+                    <input 
+                        type="text" 
+                        class="input-field" 
+                        placeholder="Email hoặc số điện thoại"
+                        required
+                    >
+                </div>
+                
+                <div class="input-group">
+                    <input 
+                        type="password" 
+                        class="input-field" 
+                        placeholder="Mật khẩu"
+                        required
+                    >
+                </div>
+                
+                <button type="submit" class="login-btn">Đăng nhập</button>
+                
+                <div class="forgot-password">
+                    <a href="#forgot">Quên mật khẩu?</a>
+                </div>
+                
+                <div class="divider">HOẶC</div>
+                
+                <button type="button" class="signup-btn" onclick="handleSignup()">
+                    Tạo tài khoản mới
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function handleLogin(event) {
+            event.preventDefault();
+            alert('Chức năng đăng nhập đang được phát triển!');
+        }
+
+        function handleSignup() {
+            alert('Chức năng đăng ký đang được phát triển!');
+        }
+    </script>
+</body>
+</html>
+
