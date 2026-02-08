@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GUMMY - Bạn Bè</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            color: #1c1e21;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 15px 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #667eea;
+            font-weight: bold;
+            font-size: 24px;
+        }
+
+        .search-bar {
+            flex: 1;
+            max-width: 300px;
+            margin: 0 30px;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 25px;
+            background-color: rgba(255, 255, 255, 0.9);
+            outline: none;
+            font-size: 14px;
+        }
+
+        .search-bar input::placeholder {
+            color: #999;
+        }
+
+        .user-info {
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+        }
+
+        .user-avatar {
+            width: 35px;
+            height: 35px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: 300px 1fr 300px;
+            gap: 20px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            height: fit-content;
+            position: sticky;
+            top: 80px;
+        }
+
+        .sidebar-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #1c1e21;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-menu li {
+            padding: 10px 0;
+            border-bottom: 1px solid #e4e6eb;
+        }
+
+        .sidebar-menu li:last-child {
+            border-bottom: none;
+        }
+
+        .sidebar-menu a {
+            text-decoration: none;
+            color: #65676b;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: color 0.3s;
+        }
+
+        .sidebar-menu a:hover {
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        /* Main Content */
+        .main-content {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #f0f2f5;
+            padding-bottom: 15px;
+        }
+
+        .content-header h1 {
+            font-size: 24px;
+            color: #1c1e21;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+            color: #65676b;
+        }
+
+        .filter-btn:hover {
+            background-color: #f0f2f5;
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: #667eea;
+        }
+
+        /* Friend Grid */
+        .friends-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .friend-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .friend-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .friend-cover {
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
+        }
+
+        .friend-avatar {
+            width: 80px;
+            height: 80px;
+            background: white;
+            border: 4px solid #f8f9fa;
+            border-radius: 50%;
+            position: absolute;
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .friend-info {
+            padding: 60px 15px 15px;
+            text-align: center;
+        }
+
+        .friend-name {
+            font-size: 16px;
+            font-weight: bold;
+            color: #1c1e21;
+            margin-bottom: 5px;
+        }
+
+        .friend-status {
+            font-size: 12px;
+            color: #65676b;
+            margin-bottom: 15px;
+        }
+
+        .friend-status.online::before {
+            content: '● ';
+            color: #31a24c;
+        }
+
+        .friend-status.offline::before {
+            content: '● ';
+            color: #999;
+        }
+
+        .friend-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+            transform: scale(1.02);
+        }
+
+        .btn-secondary {
+            background: #e4e6eb;
+            color: #1c1e21;
+            border: 1px solid #d0d2d7;
+        }
+
+        .btn-secondary:hover {
+            background: #d0d2d7;
+        }
+
+        .btn-danger {
+            background: #f02849;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #d81e3a;
+        }
+
+        /* Right Sidebar - Suggestions */
+        .suggestions {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            height: fit-content;
+            position: sticky;
+            top: 80px;
+        }
+
+        .suggestions-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #1c1e21;
+        }
+
+        .suggestion-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 0;
+            border-bottom: 1px solid #e4e6eb;
+        }
+
+        .suggestion-item:last-child {
+            border-bottom: none;
+        }
+
+        .suggestion-avatar {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .suggestion-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: #1c1e21;
+            flex: 1;
+        }
+
+        .suggestion-add {
+            background: #e4e6eb;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: #667eea;
+            transition: all 0.3s;
+        }
+
+        .suggestion-add:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar,
+            .suggestions {
+                position: static;
+                top: auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .search-bar {
+                max-width: 100%;
+                margin: 10px 0;
+            }
+
+            .friends-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+
+            .logo {
+                font-size: 24px;
+            }
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #65676b;
+        }
+
+        .empty-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+
+        .empty-text {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">🍬</div>
+                <span>GUMMY</span>
+            </div>
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Tìm kiếm bạn bè...">
+            </div>
+            <div class="user-info">
+                <span>Xin chào, Bạn!</span>
+                <div class="user-avatar">👤</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <div class="content">
+            <!-- Left Sidebar -->
+            <aside class="sidebar">
+                <h3 class="sidebar-title">Menu</h3>
+                <ul class="sidebar-menu">
+                    <li><a href="#" onclick="showSection('friends')">👥 Bạn Bè</a></li>
+                    <li><a href="#" onclick="showSection('online')">🟢 Bạn Online</a></li>
+                    <li><a href="#" onclick="showSection('request')">📬 Lời Mời Kết Bạn</a></li>
+                    <li><a href="#" onclick="showSection('suggestions')">⭐ Gợi Ý</a></li>
+                    <li><a href="#" onclick="showSection('blocked')">🚫 Người Bị Chặn</a></li>
+                </ul>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="main-content">
+                <div class="content-header">
+                    <h1 id="sectionTitle">Bạn Bè</h1>
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" onclick="filterFriends('all')">Tất Cả</button>
+                        <button class="filter-btn" onclick="filterFriends('online')">Online</button>
+                        <button class="filter-btn" onclick="filterFriends('offline')">Offline</button>
+                    </div>
+                </div>
+
+                <!-- Friends Grid -->
+                <div id="friendsContainer" class="friends-grid"></div>
+            </main>
+
+            <!-- Right Sidebar - Suggestions -->
+            <aside class="suggestions">
+                <h3 class="suggestions-title">Gợi Ý Kết Bạn</h3>
+                <div id="suggestionsContainer"></div>
+            </aside>
+        </div>
+    </div>
+
+    <script>
+        // Sample Data
+        const friendsData = [
+            { id: 1, name: 'Minh Anh', emoji: '👩‍🦰', status: 'online', mutualFriends: 12 },
+            { id: 2, name: 'Huy Phong', emoji: '👨‍💼', status: 'offline', mutualFriends: 8 },
+            { id: 3, name: 'Linh Chi', emoji: '👩‍🎓', status: 'online', mutualFriends: 15 },
+            { id: 4, name: 'Tiến Minh', emoji: '👨‍💻', status: 'online', mutualFriends: 10 },
+            { id: 5, name: 'Hương Giang', emoji: '👩‍🎨', status: 'offline', mutualFriends: 7 },
+            { id: 6, name: 'Quốc Anh', emoji: '👨‍🔬', status: 'online', mutualFriends: 9 },
+            { id: 7, name: 'Thu Trang', emoji: '👩‍⚕️', status: 'online', mutualFriends: 11 },
+            { id: 8, name: 'Nam Khoa', emoji: '👨‍🏫', status: 'offline', mutualFriends: 6 },
+            { id: 9, name: 'Thảo Nhi', emoji: '👩‍💼', status: 'online', mutualFriends: 14 },
+            { id: 10, name: 'Minh Tú', emoji: '👨‍🎸', status: 'offline', mutualFriends: 8 }
+        ];
+
+        const suggestionsData = [
+            { id: 101, name: 'Hải Đăng', emoji: '👨‍🎤' },
+            { id: 102, name: 'Kiều Anh', emoji: '👩‍🏃' },
+            { id: 103, name: 'Hải Yến', emoji: '👩‍🎪' }
+        ];
+
+        let currentFilter = 'all';
+        let allFriends = [...friendsData];
+
+        // Initialize
+        function init() {
+            renderFriends();
+            renderSuggestions();
+        }
+
+        // Render Friends
+        function renderFriends() {
+            const container = document.getElementById('friendsContainer');
+            let filtered = allFriends;
+
+            if (currentFilter !== 'all') {
+                filtered = allFriends.filter(f => f.status === currentFilter);
+            }
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; padding: 40px;">
+                        <p style="color: #65676b;">Không có bạn bè nào phù hợp</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = filtered.map(friend => `
+                <div class="friend-card">
+                    <div class="friend-cover"></div>
+                    <div class="friend-avatar">${friend.emoji}</div>
+                    <div class="friend-info">
+                        <div class="friend-name">${friend.name}</div>
+                        <div class="friend-status ${friend.status}">
+                            ${friend.status === 'online' ? 'Online' : 'Offline'} • ${friend.mutualFriends} bạn chung
+                        </div>
+                        <div class="friend-actions">
+                            <button class="btn btn-secondary" onclick="viewProfile(${friend.id})">Xem Hồ Sơ</button>
+                            <button class="btn btn-danger" onclick="removeFriend(${friend.id})">Xóa</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Render Suggestions
+        function renderSuggestions() {
+            const container = document.getElementById('suggestionsContainer');
+            container.innerHTML = suggestionsData.map(suggestion => `
+                <div class="suggestion-item">
+                    <div class="suggestion-avatar">${suggestion.emoji}</div>
+                    <div class="suggestion-name">${suggestion.name}</div>
+                    <button class="suggestion-add" onclick="addFriend(${suggestion.id})" title="Kết bạn">➕</button>
+                </div>
+            `).join('');
+        }
+
+        // Filter Friends
+        function filterFriends(type) {
+            currentFilter = type;
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            renderFriends();
+        }
+
+        // Show Section
+        function showSection(section) {
+            const title = {
+                'friends': 'Bạn Bè',
+                'online': 'Bạn Đang Online',
+                'request': 'Lời Mời Kết Bạn',
+                'suggestions': 'Gợi Ý Kết Bạn',
+                'blocked': 'Người Bị Chặn'
+            };
+            document.getElementById('sectionTitle').textContent = title[section] || 'Bạn Bè';
+            currentFilter = section === 'online' ? 'online' : 'all';
+            renderFriends();
+        }
+
+        // View Profile
+        function viewProfile(id) {
+            alert(`Đang xem hồ sơ bạn bè ID: ${id}`);
+        }
+
+        // Remove Friend
+        function removeFriend(id) {
+            if (confirm('Bạn có chắc muốn xóa bạn này?')) {
+                allFriends = allFriends.filter(f => f.id !== id);
+                renderFriends();
+                alert('Đã xóa bạn bè');
+            }
+        }
+
+        // Add Friend
+        function addFriend(id) {
+            const suggestion = suggestionsData.find(s => s.id === id);
+            if (suggestion && confirm(`Kết bạn với ${suggestion.name}?`)) {
+                const newFriend = {
+                    id: Date.now(),
+                    name: suggestion.name,
+                    emoji: suggestion.emoji,
+                    status: 'offline',
+                    mutualFriends: Math.floor(Math.random() * 10) + 3
+                };
+                allFriends.push(newFriend);
+                renderFriends();
+                renderSuggestions();
+                alert(`Đã gửi lời mời kết bạn cho ${suggestion.name}`);
+            }
+        }
+
+        // Search Friends
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            const container = document.getElementById('friendsContainer');
+            
+            if (!query) {
+                renderFriends();
+                return;
+            }
+
+            const filtered = allFriends.filter(f => 
+                f.name.toLowerCase().includes(query)
+            );
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; padding: 40px;">
+                        <p style="color: #65676b;">Không tìm thấy bạn bè nào</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = filtered.map(friend => `
+                <div class="friend-card">
+                    <div class="friend-cover"></div>
+                    <div class="friend-avatar">${friend.emoji}</div>
+                    <div class="friend-info">
+                        <div class="friend-name">${friend.name}</div>
+                        <div class="friend-status ${friend.status}">
+                            ${friend.status === 'online' ? 'Online' : 'Offline'} • ${friend.mutualFriends} bạn chung
+                        </div>
+                        <div class="friend-actions">
+                            <button class="btn btn-secondary" onclick="viewProfile(${friend.id})">Xem Hồ Sơ</button>
+                            <button class="btn btn-danger" onclick="removeFriend(${friend.id})">Xóa</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        });
+
+        // Initialize on load
+        window.addEventListener('load', init);
+    </script>
+</body>
+</html>
